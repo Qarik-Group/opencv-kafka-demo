@@ -1,1 +1,1 @@
-web: gunicorn simpleflaskapp:app
+web: bin/fetch-mobilenet-model.sh && gunicorn simpleflaskapp:app
