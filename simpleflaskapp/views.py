@@ -2,6 +2,10 @@ import datetime
 from simpleflaskapp import app
 from flask import jsonify, render_template, make_response
 import subprocess
+from cfenv import AppEnv
+
+env = AppEnv()
+kafka = env.get_service(label='starkandwayne-kafka')
 
 @app.route('/', methods = ['GET'])
 def hello_world():
@@ -28,3 +32,7 @@ def get_aws_bucket():
     resp = make_response(stdout)
     resp.headers['Content-type'] = 'text/plain; charset=utf-8'
     return resp
+
+@app.route('/kafka-env', methods = ['GET'])
+def get_kafka_env():
+    return jsonify({'env': kafka.credentials})
