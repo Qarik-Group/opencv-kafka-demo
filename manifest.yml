@@ -1,10 +1,8 @@
 applications:
 - name: opencv-kafka-flask-demo
-  buildpack: python_buildpack
+  buildpack: https://github.com/cloudfoundry/multi-buildpack
   disk_quota: 1G
   env:
-    AWS_ACCESS_KEY_ID:
-    AWS_SECRET_ACCESS_KEY:
     AWS_DEFAULT_REGION: us-east-1
   instances: 1
   memory: 512M
