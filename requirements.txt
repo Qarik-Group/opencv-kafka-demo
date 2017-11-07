@@ -1,2 +1,5 @@
 Flask==0.10.1
 gunicorn==19.4.5
+
+# to fetch opencv MobileNet model from S3
+awscli
