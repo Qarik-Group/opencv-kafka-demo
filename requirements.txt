@@ -3,3 +3,5 @@ gunicorn==19.4.5
 
 # to fetch opencv MobileNet model from S3
 awscli
+
+kafka-python
