@@ -6,7 +6,6 @@ statusService = env.get_service(name='status-topic')
 if statusService is None:
     statusKafka = "localhost:9092"
     statusTopic  = "opencv-kafka-demo-status"
-
 else:
     statusKafka  = statusService.credentials.get("hostname")
     statusTopic  = statusService.credentials.get("topicName")
