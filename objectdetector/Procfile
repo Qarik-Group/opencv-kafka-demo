@@ -1,1 +1,1 @@
-web: bin/fetch-mobilenet-model.sh && gunicorn __init__:app
+web: bin/fetch-mobilenet-model.sh && python3 app.py

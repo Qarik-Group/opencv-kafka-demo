@@ -1,6 +1,4 @@
-from flask import Flask, jsonify, render_template, make_response
 from cfenv import AppEnv
-
 env = AppEnv()
 statusService = env.get_service(name='status-topic')
 if statusService is None:
@@ -18,11 +16,13 @@ else:
     imagesKafka  = imagesService.credentials.get("hostname")
     imagesTopic  = imagesService.credentials.get("topicName")
 
+import json
+from kafka import KafkaProducer
+statusProducer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'), bootstrap_servers=statusKafka)
+statusProducer.send(statusTopic, {"status":"starting", "client": "objectdetector"})
+
 from kafka import KafkaConsumer
-statusConsumer = KafkaConsumer(statusTopic, bootstrap_servers=statusKafka)
+imagesConsumer = KafkaConsumer(imagesTopic, bootstrap_servers=imagesKafka)
 
-metrics = statusConsumer.metrics()
-print(metrics)
-
-for msg in statusConsumer:
-    print(msg)
+for image in imagesConsumer:
+    print("image")
