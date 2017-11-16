@@ -2,29 +2,33 @@ from flask import Flask, jsonify, render_template, make_response
 from cfenv import AppEnv
 
 env = AppEnv()
-kafkaService = env.get_service(name='raw-images-topic')
-if kafkaService is None:
-    kafkaServers   = "localhost:9092"
-    kafkaTopicName = "opencv-kafka-demo-status"
+statusService = env.get_service(name='status')
+if statusService is None:
+    statusKafka = "localhost:9092"
+    statusTopic  = "opencv-kafka-demo-status"
 
 else:
-    kafkaServers   = kafkaService.credentials.get("hostname")
-    kafkaTopicName = kafkaService.credentials.get("topicName")
+    statusKafka  = statusService.credentials.get("hostname")
+    statusTopic  = statusService.credentials.get("topicName")
 
-print("  hostname",  kafkaServers)
-print("  topicName", kafkaTopicName)
+imagesService = env.get_service(name='images')
+if imagesService is None:
+    imagesKafka = "localhost:9092"
+    imagesTopic = "opencv-kafka-demo-images"
+
+else:
+    imagesKafka  = imagesService.credentials.get("hostname")
+    imagesTopic  = imagesService.credentials.get("topicName")
 
 from kafka import KafkaProducer
-producer = KafkaProducer(bootstrap_servers=kafkaServers)
-producer.send(kafkaTopicName, b'{"status":"starting"}')
+import json
+statusProducer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'), bootstrap_servers=statusKafka)
+statusProducer.send(statusTopic, {"status":"starting", "client": "imagereceiver"})
 
 app = Flask(__name__)
 
 @app.route('/', methods = ['GET'])
-def get_kafka_env():
-    producer.send(kafkaTopicName, b'{"status":"get_kafka_env"}')
+def get_env():
+    statusProducer.send(statusTopic, {"status":"get_env", "client": "imagereceiver"})
 
-    if kafkaService is None:
-        return jsonify({"hostname": kafkaServers, "topicName": kafkaTopicName})
-    else:
-        return jsonify(kafkaService.credentials)
+    return jsonify({"statusKafka": statusKafka, "statusTopic": statusTopic, "imagesKafka": imagesKafka, "imagesTopic": imagesTopic})
