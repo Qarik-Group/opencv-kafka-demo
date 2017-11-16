@@ -6,3 +6,7 @@ kafka-python
 
 # https://github.com/jmcarp/py-cfenv
 cfenv
+
+opencv-python
+numpy
+imutils

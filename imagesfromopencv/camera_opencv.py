@@ -1,4 +1,5 @@
 import cv2
+import imutils
 from camera_base import BaseCamera
 
 
@@ -17,7 +18,11 @@ class Camera(BaseCamera):
 
         while True:
             # read current frame
-            _, img = camera.read()
+            _, image = camera.read()
+            image = imutils.resize(image, width=400)
+
+            # (h, w) = image.shape[:2]
+            # print(h, w)
 
             # encode as a jpeg image and return it
-            yield cv2.imencode('.jpg', img)[1].tobytes()
+            yield cv2.imencode('.jpg', image)[1].tobytes()

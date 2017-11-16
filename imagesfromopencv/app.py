@@ -24,7 +24,7 @@ statusProducer.send(statusTopic, {"status":"starting", "client": "imagesfromopen
 imagesService = env.get_service(name='raw-images-topic')
 if imagesService is None:
     imagesKafka = "localhost:9092"
-    imagesTopic = "opencv-kafka-demo-images"
+    imagesTopic = "opencv-kafka-demo-raw-images"
 else:
     imagesKafka  = imagesService.credentials.get("hostname")
     imagesTopic  = imagesService.credentials.get("topicName")

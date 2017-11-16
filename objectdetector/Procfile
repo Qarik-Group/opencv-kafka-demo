@@ -1,1 +1,1 @@
-web: bin/fetch-mobilenet-model.sh && python3 app.py
+web: bin/fetch-mobilenet-model.sh && python app.py
