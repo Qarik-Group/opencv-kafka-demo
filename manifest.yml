@@ -10,6 +10,7 @@ applications:
   health-check-type: http
   health-check-http-endpoint: /
   services:
+  - status-topic
   - raw-images-topic
 - name: objectdetector
   path: objectdetector
@@ -21,4 +22,16 @@ applications:
   health-check-type: http
   health-check-http-endpoint: /
   services:
+  - status-topic
   - raw-images-topic
+- name: statusconsumer
+  path: statusconsumer
+  buildpack: python_buildpack
+  disk_quota: 256M
+  instances: 1
+  memory: 256M
+  stack: cflinuxfs2
+  health-check-type: none
+  no-route: true
+  services:
+  - status-topic
