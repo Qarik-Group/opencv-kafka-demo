@@ -14,6 +14,13 @@ else:
     statusKafka  = statusService.credentials.get("hostname")
     statusTopic  = statusService.credentials.get("topicName")
 
+# FIXME: this app will be run on RaspberryPis that do not have access to Kafka
+# This is temporary whilst I play
+import json
+from kafka import KafkaProducer
+statusProducer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'), bootstrap_servers=statusKafka)
+statusProducer.send(statusTopic, {"status":"starting", "client": "imagesfromopencv"})
+
 imagesService = env.get_service(name='raw-images-topic')
 if imagesService is None:
     imagesKafka = "localhost:9092"
@@ -22,12 +29,6 @@ else:
     imagesKafka  = imagesService.credentials.get("hostname")
     imagesTopic  = imagesService.credentials.get("topicName")
 
-# FIXME: this app will be run on RaspberryPis that do not have access to Kafka
-# This is temporary whilst I play
-import json
-from kafka import KafkaProducer
-statusProducer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'), bootstrap_servers=statusKafka)
-statusProducer.send(statusTopic, {"status":"starting", "client": "imagesfromopencv"})
 
 imagesProducer = KafkaProducer(bootstrap_servers=imagesKafka)
 
@@ -41,6 +42,6 @@ else:
 camerastream = Camera()
 while True:
     frame = camerastream.get_frame()
-    print("frame")
+    # print("frame")
     imagesProducer.send(imagesTopic, frame)
-    statusProducer.send(statusTopic, {"status":"image-sent", "client": "imagesfromopencv", "camera": camerastream.__class__.__name__})
+    # statusProducer.send(statusTopic, {"status":"image-sent", "client": "imagesfromopencv", "camera": camerastream.__class__.__name__})
