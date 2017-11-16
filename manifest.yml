@@ -23,6 +23,8 @@ applications:
   services:
   - status-topic
   - raw-images-topic
+  env:
+    CAMERA: kafka
 - name: objectdetector
   path: objectdetector
   buildpack: https://github.com/cloudfoundry/multi-buildpack
