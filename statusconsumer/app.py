@@ -17,4 +17,4 @@ metrics = statusConsumer.metrics()
 print(metrics)
 
 for msg in statusConsumer:
-    print(msg)
+    print(msg.value)
