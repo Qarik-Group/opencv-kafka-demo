@@ -18,8 +18,8 @@ else:
     imagesKafka  = imagesService.credentials.get("hostname")
     imagesTopic  = imagesService.credentials.get("topicName")
 
-from kafka import KafkaProducer
 import json
+from kafka import KafkaProducer
 statusProducer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'), bootstrap_servers=statusKafka)
 statusProducer.send(statusTopic, {"status":"starting", "client": "imagereceiver"})
 
