@@ -36,11 +36,8 @@ statusProducer.send(statusTopic, {"status":"starting", "client": "objectdetector
 
 # initialize the list of class labels MobileNet SSD was trained to
 # detect, then generate a set of bounding box colors for each class
-CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
-	"bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
-	"dog", "horse", "motorbike", "person", "pottedplant", "sheep",
-	"sofa", "train", "tvmonitor"]
-COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
+object_classes = json.load(open("models/object_classes.json", "r"))
+object_colours = json.load(open("models/object_colours.json", "r"))
 
 # load our serialized model from disk
 print("[INFO] loading model...")
@@ -88,13 +85,13 @@ for image in inImages:
         		(startX, startY, endX, endY) = box.astype("int")
 
         		# draw the prediction on the frame
-        		label = "{}: {:.2f}%".format(CLASSES[idx],
+        		label = "{}: {:.2f}%".format(object_classes[idx],
         			confidence * 100)
         		cv2.rectangle(frame, (startX, startY), (endX, endY),
-        			COLORS[idx], 2)
+        			object_colours[idx], 2)
         		y = startY - 15 if startY - 15 > 15 else startY + 15
         		cv2.putText(frame, label, (startX, y),
-        			cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)
+        			cv2.FONT_HERSHEY_SIMPLEX, 0.5, object_colours[idx], 2)
 
         image = cv2.imencode('.jpg', frame)[1].tobytes()
         outImages.send(outImagesTopic, image)
