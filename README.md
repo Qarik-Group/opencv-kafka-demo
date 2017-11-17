@@ -1,4 +1,36 @@
 
+## Locally
+
+```
+brew install kafka
+```
+
+Kafka + ZooKeeper are now running locally.
+
+To start publishing your laptop camera to a kafka topic:
+
+```
+cd imagesfromopencv
+CAMERA=opencv python3 app.py
+```
+
+To start processing the images from Kafka topic via OpenCV to do object detection, and push the resulting images onto a new Kafka topic:
+
+```
+cd objectdetector
+python3 app.py
+```
+
+To run a webserver that streams the resulting images to a web page:
+
+```
+cd imagewatcher
+gunicorn __init__:app --reload -e CAMERA=kafka
+```
+
+View at http://localhost:8000
+
+## Cloud Foundry
 
 To deploy all apps to Cloud Foundry:
 
