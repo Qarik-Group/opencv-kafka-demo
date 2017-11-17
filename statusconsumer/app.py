@@ -15,5 +15,6 @@ statusConsumer = KafkaConsumer(statusTopic, bootstrap_servers=statusKafka)
 metrics = statusConsumer.metrics()
 print(metrics)
 
+import json
 for msg in statusConsumer:
-    print(msg.value)
+    print(json.loads(msg.value))
