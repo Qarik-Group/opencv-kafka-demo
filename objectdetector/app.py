@@ -95,3 +95,5 @@ for image in inImages:
 
         image = cv2.imencode('.jpg', frame)[1].tobytes()
         outImages.send(outImagesTopic, image)
+
+    inImages.seek_to_end()
