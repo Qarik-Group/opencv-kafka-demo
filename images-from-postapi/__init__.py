@@ -13,7 +13,7 @@ else:
 import json
 from kafka import KafkaProducer
 statusProducer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'), bootstrap_servers=statusKafka)
-statusProducer.send(statusTopic, {"status":"starting", "client": "images-from-postapi"})
+statusProducer.send(statusTopic, {"status":"starting", "client": "images-from-postapi", "language": "python"})
 
 imagesService = env.get_service(name='raw-images-topic')
 if imagesService is None:
@@ -29,7 +29,7 @@ app = Flask(__name__)
 
 @app.route('/', methods = ['GET'])
 def get_status():
-    statusProducer.send(statusTopic, {"status":"get_status", "client": "images-from-postapi"})
+    statusProducer.send(statusTopic, {"status":"get_status", "client": "images-from-postapi", "language": "python"})
 
     return jsonify({"statusKafka": statusKafka, "statusTopic": statusTopic, "imagesKafka": imagesKafka, "imagesTopic": imagesTopic})
 

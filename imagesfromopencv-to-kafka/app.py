@@ -16,7 +16,7 @@ else:
 import json
 from kafka import KafkaProducer
 statusProducer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'), bootstrap_servers=statusKafka)
-statusProducer.send(statusTopic, {"status":"starting", "client": "imagesfromopencv"})
+statusProducer.send(statusTopic, {"status":"starting", "client": "imagesfromopencv", "language": "python"})
 
 imagesService = env.get_service(name='raw-images-topic')
 if imagesService is None:

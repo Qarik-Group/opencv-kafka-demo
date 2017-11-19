@@ -19,7 +19,7 @@ else:
 import json
 from kafka import KafkaProducer
 statusProducer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'), bootstrap_servers=statusKafka)
-statusProducer.send(statusTopic, {"status":"starting", "client": "imagewatcher"})
+statusProducer.send(statusTopic, {"status":"starting", "client": "imagewatcher", "language": "python"})
 
 # import camera driver
 if os.environ.get('CAMERA'):
@@ -44,7 +44,7 @@ def gen(camera):
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    statusProducer.send(statusTopic, {"status":"req-video-feed", "client": "imagewatcher"})
+    statusProducer.send(statusTopic, {"status":"req-video-feed", "client": "imagewatcher", "language": "python"})
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 

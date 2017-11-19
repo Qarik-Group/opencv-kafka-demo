@@ -32,7 +32,7 @@ else:
 import json
 from kafka import KafkaProducer
 statusProducer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'), bootstrap_servers=statusKafka)
-statusProducer.send(statusTopic, {"status":"starting", "client": "objectdetector"})
+statusProducer.send(statusTopic, {"status":"starting", "client": "objectdetector", "language": "python"})
 
 
 # initialize the list of class labels MobileNet SSD was trained to
