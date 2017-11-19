@@ -10,14 +10,6 @@ else:
     statusKafka  = statusService.credentials.get("hostname")
     statusTopic  = statusService.credentials.get("topicName")
 
-imagesService = env.get_service(name='raw-images-topic')
-if imagesService is None:
-    imagesKafka = "localhost:9092"
-    imagesTopic = "opencv-kafka-demo-raw-images"
-else:
-    imagesKafka  = imagesService.credentials.get("hostname")
-    imagesTopic  = imagesService.credentials.get("topicName")
-
 import json
 from kafka import KafkaProducer
 statusProducer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'), bootstrap_servers=statusKafka)

@@ -12,8 +12,10 @@ postEndpoint = os.environ['POST_ENDPOINT']
 
 # import camera driver
 if os.environ.get('CAMERA'):
+    print("Using camera", os.environ['CAMERA'])
     Camera = import_module('camera_' + os.environ['CAMERA']).Camera
 else:
+    print("Using demo camera")
     from camera import Camera
 
 camerastream = Camera()
