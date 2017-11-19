@@ -10,7 +10,7 @@ Kafka + ZooKeeper are now running locally.
 To start publishing your laptop camera to a kafka topic:
 
 ```
-cd imagesfromopencv
+cd imagesfromopencv-to-kafka
 CAMERA=opencv python3 app.py
 ```
 
