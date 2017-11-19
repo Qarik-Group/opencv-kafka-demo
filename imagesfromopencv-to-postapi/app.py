@@ -18,5 +18,8 @@ else:
 camerastream = Camera()
 while True:
     frame = camerastream.get_frame()
-    r = requests.post(postEndpoint, data=frame)
-    print(r.status_code)
+    try:
+        r = requests.post(postEndpoint, data=frame)
+        print(r.status_code)
+    except requests.exceptions.RequestException as err:
+        print("Connection error: {0}".format(err))
