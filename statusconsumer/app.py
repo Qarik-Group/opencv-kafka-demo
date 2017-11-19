@@ -17,4 +17,7 @@ print(metrics)
 
 import json
 for msg in statusConsumer:
-    print(json.loads(msg.value))
+    try:
+        print(json.loads(msg.value))
+    except json.decoder.JSONDecodeError:
+        print("Message no JSON:", msg.value)
