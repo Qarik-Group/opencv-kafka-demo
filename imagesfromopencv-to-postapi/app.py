@@ -2,6 +2,7 @@
 from importlib import import_module
 import os
 import requests
+from time import sleep
 
 if not os.environ.get('POST_ENDPOINT'):
     print("Requires $POST_ENDPOINT")
@@ -20,6 +21,9 @@ while True:
     frame = camerastream.get_frame()
     try:
         r = requests.post(postEndpoint, data=frame)
-        print(r.status_code)
+        if r.status_code != 200:
+            print(r.status_code)
+            sleep(1)
     except requests.exceptions.RequestException as err:
         print("Connection error: {0}".format(err))
+        sleep(1)
