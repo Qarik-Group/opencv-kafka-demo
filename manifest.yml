@@ -1,8 +1,8 @@
 ---
 applications:
-- name: imagereceiver
-  path: imagereceiver
-  buildpack: python_buildpack
+- name: images-from-postapi
+  path: images-from-postapi
+  buildpack: https://github.com/cloudfoundry/python-buildpack
   disk_quota: 1G
   instances: 1
   memory: 256M
@@ -12,19 +12,6 @@ applications:
   services:
   - status-topic
   - raw-images-topic
-- name: imagewatcher
-  path: imagewatcher
-  buildpack: python_buildpack
-  disk_quota: 1G
-  instances: 1
-  memory: 256M
-  stack: cflinuxfs2
-  health-check-type: port
-  services:
-  - status-topic
-  - raw-images-topic
-  env:
-    CAMERA: kafka
 - name: objectdetector
   path: objectdetector
   buildpack: https://github.com/cloudfoundry/multi-buildpack
@@ -37,9 +24,24 @@ applications:
   services:
   - status-topic
   - raw-images-topic
+  - objectdetector-images-topic
+- name: imagewatcher
+  path: imagewatcher
+  buildpack: https://github.com/cloudfoundry/python-buildpack
+  disk_quota: 1G
+  instances: 1
+  memory: 256M
+  stack: cflinuxfs2
+  health-check-type: port
+  services:
+  - status-topic
+  - objectdetector-images-topic
+  env:
+    CAMERA: kafka
+    IMAGE_TOPIC_SERVICE_NAME: objectdetector-images-topic
 - name: statusconsumer
   path: statusconsumer
-  buildpack: python_buildpack
+  buildpack: https://github.com/cloudfoundry/python-buildpack
   disk_quota: 256M
   instances: 1
   memory: 256M
