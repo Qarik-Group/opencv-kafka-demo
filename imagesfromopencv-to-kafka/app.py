@@ -13,8 +13,6 @@ else:
     statusKafka  = statusService.credentials.get("hostname")
     statusTopic  = statusService.credentials.get("topicName")
 
-# FIXME: this app will be run on RaspberryPis that do not have access to Kafka
-# This is temporary whilst I play
 import json
 from kafka import KafkaProducer
 statusProducer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'), bootstrap_servers=statusKafka)
