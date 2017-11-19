@@ -1,3 +1,4 @@
+import os
 import cv2
 import numpy as np
 import imutils
@@ -47,12 +48,20 @@ net = cv2.dnn.readNetFromCaffe(protext, model)
 
 CONFIDENCE=0.2 # minimum probability to filter weak detections
 
+kafka_group_id=inImagesTopic
+kafka_client_id='%s-%d' % (kafka_group_id, os.getpid())
+print(kafka_group_id, kafka_client_id)
+
 from kafka import KafkaConsumer, KafkaProducer
-inImages = KafkaConsumer(inImagesTopic, bootstrap_servers=inImagesKafka)
+inImages = KafkaConsumer(inImagesTopic,
+                         bootstrap_servers=inImagesKafka,
+                         client_id=kafka_client_id,
+                         group_id=kafka_group_id)
 outImages = KafkaProducer(bootstrap_servers=outImagesKafka)
 
 from tempfile import NamedTemporaryFile
 for image in inImages:
+    print(image.partition, image.offset)
     with NamedTemporaryFile(suffix=".jpg") as frame_file:
         frame_file.write(image.value)
         frame_file.seek(0)
