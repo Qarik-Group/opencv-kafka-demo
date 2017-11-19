@@ -1,5 +1,6 @@
 from camera_base import BaseCamera
 from cfenv import AppEnv
+import os
 
 cf_kafka_topic='objectdetector-images-topic'
 if os.environ.get('IMAGE_TOPIC_SERVICE_NAME'):
