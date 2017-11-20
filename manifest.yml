@@ -1,5 +1,16 @@
 ---
 applications:
+- name: statusconsumer
+  path: statusconsumer
+  buildpack: https://github.com/cloudfoundry/python-buildpack
+  disk_quota: 256M
+  instances: 1
+  memory: 256M
+  stack: cflinuxfs2
+  health-check-type: none
+  no-route: true
+  services:
+  - status-topic
 - name: images-from-postapi
   path: images-from-postapi/src/images-from-postapi
   buildpack: https://github.com/cloudfoundry/multi-buildpack
@@ -25,28 +36,31 @@ applications:
   - status-topic
   - raw-images-topic
   - objectdetector-images-topic
-- name: imagewatcher
-  path: imagewatcher
-  buildpack: https://github.com/cloudfoundry/python-buildpack
-  disk_quota: 1G
+- name: imagewatcher-raw
+  buildpack: https://github.com/cloudfoundry/multi-buildpack
+  health-check-type: http
   instances: 1
-  memory: 256M
+  memory: 128M
   stack: cflinuxfs2
-  health-check-type: port
+  services:
+  - status-topic
+  - raw-images-topic
+  env:
+    GOVERSION: go1.9
+    GOPACKAGENAME: imagewatcher
+    GIN_MODE: release
+    IMAGE_TOPIC_SERVICE_NAME: raw-images-topic
+- name: imagewatcher-objectdetector
+  buildpack: https://github.com/cloudfoundry/multi-buildpack
+  health-check-type: http
+  instances: 1
+  memory: 128M
+  stack: cflinuxfs2
   services:
   - status-topic
   - objectdetector-images-topic
   env:
-    CAMERA: kafka
+    GOVERSION: go1.9
+    GOPACKAGENAME: imagewatcher
+    GIN_MODE: release
     IMAGE_TOPIC_SERVICE_NAME: objectdetector-images-topic
-- name: statusconsumer
-  path: statusconsumer
-  buildpack: https://github.com/cloudfoundry/python-buildpack
-  disk_quota: 256M
-  instances: 1
-  memory: 256M
-  stack: cflinuxfs2
-  health-check-type: none
-  no-route: true
-  services:
-  - status-topic
