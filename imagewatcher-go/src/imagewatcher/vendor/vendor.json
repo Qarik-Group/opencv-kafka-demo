@@ -1,0 +1,25 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "kQPzONunXhdzL1KT4YkmRU8R7Fs=",
+			"path": "github.com/cloudfoundry-community/go-cfenv",
+			"revision": "e84b5c116637ef174eb8c7d68a28bc7269b3b9cb",
+			"revisionTime": "2017-11-15T12:19:58Z"
+		},
+		{
+			"checksumSHA1": "zzuNFGCTFKATFdnZL/H5Ky+i3xs=",
+			"path": "github.com/confluentinc/confluent-kafka-go/kafka",
+			"revision": "99a5addc08f7f0d0c20e51e0746f5af3434a5649",
+			"revisionTime": "2017-10-09T10:04:22Z"
+		},
+		{
+			"checksumSHA1": "gILp4IL+xwXLH6tJtRLrnZ56F24=",
+			"path": "github.com/mitchellh/mapstructure",
+			"revision": "06020f85339e21b2478f756a78e295255ffa4d6a",
+			"revisionTime": "2017-10-17T17:18:08Z"
+		}
+	],
+	"rootPath": "imagewatcher"
+}
