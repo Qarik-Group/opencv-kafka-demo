@@ -91,6 +91,7 @@ func (imagesChannel *ImagesChannel) WatchImages(latestJPEG func([]byte)) {
 				case kafka.Error:
 					fmt.Fprintf(os.Stderr, "%% Error: %v\n", e)
 					run = false
+					// TODO: perhaps insert an "Error" image
 				default:
 					fmt.Printf("Ignored %v\n", e)
 				}
