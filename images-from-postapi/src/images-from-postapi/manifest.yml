@@ -1,0 +1,13 @@
+applications:
+- name: images-from-postapi
+  buildpack: https://github.com/cloudfoundry/multi-buildpack
+  health-check-type: http
+  instances: 1
+  memory: 128M
+  stack: cflinuxfs2
+  services:
+  - status-topic
+  - raw-images-topic
+  env:
+    GOVERSION: go1.9
+    GOPACKAGENAME: images-from-postapi

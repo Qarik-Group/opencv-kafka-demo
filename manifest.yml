@@ -1,18 +1,18 @@
 ---
 applications:
-# images-from-postapi is currently rewritten as a Golang app
-# - name: images-from-postapi
-#   path: images-from-postapi
-#   buildpack: https://github.com/cloudfoundry/python-buildpack
-#   disk_quota: 1G
-#   instances: 1
-#   memory: 256M
-#   stack: cflinuxfs2
-#   health-check-type: http
-#   health-check-http-endpoint: /
-#   services:
-#   - status-topic
-#   - raw-images-topic
+- name: images-from-postapi
+  path: images-from-postapi/src/images-from-postapi
+  buildpack: https://github.com/cloudfoundry/multi-buildpack
+  health-check-type: http
+  instances: 1
+  memory: 128M
+  stack: cflinuxfs2
+  services:
+  - status-topic
+  - raw-images-topic
+  env:
+    GOVERSION: go1.9
+    GOPACKAGENAME: images-from-postapi
 - name: objectdetector
   path: objectdetector
   buildpack: https://github.com/cloudfoundry/multi-buildpack
