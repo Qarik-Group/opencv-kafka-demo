@@ -1,0 +1,29 @@
+applications:
+- name: streamingdemo-raw
+  buildpack: https://github.com/cloudfoundry/multi-buildpack
+  health-check-type: http
+  instances: 1
+  memory: 128M
+  stack: cflinuxfs2
+  services:
+  - status-topic
+  - raw-images-topic
+  env:
+    GOVERSION: go1.9
+    GOPACKAGENAME: streamingdemo
+    GIN_MODE: release
+    IMAGE_TOPIC_SERVICE_NAME: raw-images-topic
+- name: streamingdemo-objectdetector
+  buildpack: https://github.com/cloudfoundry/multi-buildpack
+  health-check-type: http
+  instances: 1
+  memory: 128M
+  stack: cflinuxfs2
+  services:
+  - status-topic
+  - objectdetector-images-topic
+  env:
+    GOVERSION: go1.9
+    GOPACKAGENAME: streamingdemo
+    GIN_MODE: release
+    IMAGE_TOPIC_SERVICE_NAME: objectdetector-images-topic

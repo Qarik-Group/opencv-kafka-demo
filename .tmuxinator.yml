@@ -11,6 +11,5 @@ windows:
         - cd statusconsumer; python3 app.py
         - cd images-from-postapi; source .envrc; go run src/images-from-postapi/main.go
         - cd objectdetector; python3 app.py
-        - cd imagewatcher-go; source .envrc; cd src/imagewatcher; IMAGE_TOPIC=opencv-kafka-demo-raw-images PORT=8080 go run main.go
-        - cd imagewatcher-go; source .envrc; cd src/imagewatcher; IMAGE_TOPIC=opencv-kafka-demo-objectdetector-images PORT=8081 go run main.go
+        - cd streamingdemo; source .envrc; cd src/streamingdemo; go run main.go
         - sleep 5; cd imagesfromopencv-to-postapi; POST_ENDPOINT=http://localhost:8000/image CAMERA=opencv python3 app.py

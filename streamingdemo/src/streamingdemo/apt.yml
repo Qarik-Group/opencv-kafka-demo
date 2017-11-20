@@ -1,0 +1,7 @@
+---
+keys:
+- http://packages.confluent.io/deb/3.3/archive.key
+repos:
+- deb [arch=amd64] http://packages.confluent.io/deb/3.3 stable main
+packages:
+- librdkafka-dev
