@@ -96,6 +96,7 @@ func (imagesChannel *ImagesChannel) WatchImages(latestJPEG func([]byte)) {
 				}
 			}
 		}
+		os.Exit(0)
 	}()
 
 }
