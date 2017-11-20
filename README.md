@@ -1,5 +1,5 @@
 
-## Locally
+## Locally MacOS
 
 ```
 brew install kafka
@@ -29,6 +29,25 @@ gunicorn __init__:app --reload -e CAMERA=kafka
 ```
 
 View at http://localhost:8000
+
+## MacOS/tmux
+
+```
+brew install tmux
+gem install tmuxinator
+```
+
+There is a local `.tmuxinator.yml` that will now start zookeeper/kafka, and then run all the different processes:
+
+```
+tmuxinator start demo
+```
+
+To exit the tmux session, use tmux command `ctrl-c d`. Then to kill the session and its processes:
+
+```
+tmux kill-session -t demo
+```
 
 ## Cloud Foundry
 
