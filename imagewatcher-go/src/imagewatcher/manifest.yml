@@ -11,3 +11,4 @@ applications:
   env:
     GOVERSION: go1.9
     GOPACKAGENAME: imagewatcher
+    GIN_MODE: release

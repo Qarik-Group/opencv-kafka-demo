@@ -1,28 +1,46 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"os"
-
+	"imagewatcher/mjpeg"
 	"imagewatcher/status"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-func webHandlerRoot(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there!")
-}
+// func webHandlerRoot(w http.ResponseWriter, r *http.Request) {
+//   tmpl, err := template.New("index").Parse(...)
+// // Error checking elided
+// err = tmpl.Execute(w, data)
+//
+// }
 
 var statusChannel *status.StatusChannel
+var imageStream *mjpeg.Stream
 
 func main() {
 	statusChannel = status.NewStatusChannel()
 	statusChannel.PostStatus("starting")
 
-	http.HandleFunc("/", webHandlerRoot)
+	imageStream = mjpeg.NewStream()
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8000"
-	}
-	http.ListenAndServe(":"+port, nil)
+	r := gin.Default()
+	r.LoadHTMLGlob("templates/*")
+
+	r.Use(gin.Logger())
+	// Recovery middleware recovers from any panics and writes a 500 if there was one.
+	r.Use(gin.Recovery())
+
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"videoFeedURL": "/stream_image",
+		})
+	})
+	r.GET("/stream_image", imageStream.ServeGinContent)
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+	r.Run() // listen and serve on 0.0.0.0:8080
 }
