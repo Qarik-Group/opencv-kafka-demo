@@ -33,7 +33,7 @@ func main() {
 	imagesChannel = images.NewImagesChannel()
 
 	http.HandleFunc("/", webHandlerRoot)
-	http.HandleFunc("/image", webHandlerReceiveImage)
+	http.HandleFunc("/image/drnic-laptop", webHandlerReceiveImage)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000"
