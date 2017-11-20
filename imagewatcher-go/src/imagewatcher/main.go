@@ -1,8 +1,10 @@
 package main
 
 import (
+	"imagewatcher/images"
 	"imagewatcher/mjpeg"
 	"imagewatcher/status"
+
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,13 +18,20 @@ import (
 // }
 
 var statusChannel *status.StatusChannel
+var imagesChannel *images.ImagesChannel
 var imageStream *mjpeg.Stream
 
 func main() {
 	statusChannel = status.NewStatusChannel()
 	statusChannel.PostStatus("starting")
 
+	imagesChannel = images.NewImagesChannel()
+
 	imageStream = mjpeg.NewStream()
+
+	go func() {
+		imagesChannel.WatchImages(imageStream.UpdateJPEG)
+	}()
 
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
