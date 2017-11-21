@@ -8,7 +8,7 @@ windows:
   - run:
       layout: tiled
       panes:
-        - cd images-from-postapi; source .envrc; cd src/images-from-postapi; go run main.go
+        - cd images-from-postapi; source .envrc; cd src/images-from-postapi; DEVICE_IDS=images,drnic-laptop go run main.go
         - sleep 5; cd imagesfromopencv-to-postapi; DEVICE_ID=images POST_ENDPOINT=http://localhost:8000/image CAMERA=opencv python3 app.py
         - cd statusconsumer; python3 app.py
         - cd objectdetector; python3 app.py

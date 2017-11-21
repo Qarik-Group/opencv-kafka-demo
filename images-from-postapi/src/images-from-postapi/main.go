@@ -37,7 +37,7 @@ func main() {
 	statusChannel = status.NewStatusChannel()
 	statusChannel.PostStatus("starting")
 
-	imageStreamChannels = images.NewImageStreamChannels([]string{"images"})
+	imageStreamChannels = images.NewImageStreamChannelsWithDiscovery()
 
 	http.HandleFunc("/", webHandlerRoot)
 	http.HandleFunc("/image", webHandlerReceiveImage)
