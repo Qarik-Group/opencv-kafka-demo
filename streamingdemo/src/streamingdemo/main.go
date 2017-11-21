@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"streamingdemo/images"
 	"streamingdemo/mjpeg"
 	"streamingdemo/status"
@@ -35,11 +36,22 @@ func main() {
 	r.Use(gin.Recovery())
 
 	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"videoFeedURL": "/stream_image",
-		})
+		if os.Getenv("DEMO_IMAGES") != "" {
+			c.HTML(http.StatusOK, "index.html", gin.H{
+				"videoFeedURL":            "/stream_image",
+				"rawImageURL":             "/images/raw-drnic-laptop.png",
+				"objectdetectionImageURL": "/images/objectdetection-drnic-laptop.png",
+			})
+		} else {
+			c.HTML(http.StatusOK, "index.html", gin.H{
+				"videoFeedURL":            "/stream_image",
+				"rawImageURL":             "/stream_image/raw",
+				"objectdetectionImageURL": "/stream_image/objectdetection",
+			})
+		}
 	})
-	r.GET("/stream_image", imageStream.ServeGinContent)
+	r.GET("/stream_image/raw", imageStream.ServeGinContent)
+	r.GET("/stream_image/objectdetection", imageStream.ServeGinContent)
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
