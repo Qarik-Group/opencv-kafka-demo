@@ -9,13 +9,28 @@ import (
 )
 
 type ImagesChannel struct {
+	DeviceID  string
 	Hostname  string
 	TopicName string
 	Producer  *kafka.Producer
 }
 
 // NewImagesChannel constructs ImagesChannel and sets up connection
-func NewImagesChannel() (imagesChannel *ImagesChannel) {
+func NewImagesChannel(deviceID, hostname, topicName string) (imagesChannel *ImagesChannel) {
+	producer, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": hostname})
+	if err != nil {
+		fmt.Printf("Failed to create '%s' producer: %s\n", topicName, err)
+		os.Exit(1)
+	}
+	return &ImagesChannel{
+		DeviceID:  deviceID,
+		Hostname:  hostname,
+		TopicName: topicName,
+		Producer:  producer,
+	}
+}
+
+func oldNewImagesChannel() (imagesChannel *ImagesChannel) {
 	imagesChannel = &ImagesChannel{
 		Hostname:  "localhost:9092",
 		TopicName: "opencv-kafka-demo-raw-images",

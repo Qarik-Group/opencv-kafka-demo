@@ -26,18 +26,18 @@ func webHandlerReceiveImage(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Failed to ReadAll image")
 	}
-	imagesChannel.PostImage(&image)
+	imageStreamChannels.PostImage(&image, deviceID)
 	fmt.Fprintf(w, "{}")
 }
 
 var statusChannel *status.StatusChannel
-var imagesChannel *images.ImagesChannel
+var imageStreamChannels *images.ImageStreamChannels
 
 func main() {
 	statusChannel = status.NewStatusChannel()
 	statusChannel.PostStatus("starting")
 
-	imagesChannel = images.NewImagesChannel()
+	imageStreamChannels = images.NewImageStreamChannels([]string{"images"})
 
 	http.HandleFunc("/", webHandlerRoot)
 	http.HandleFunc("/image", webHandlerReceiveImage)
