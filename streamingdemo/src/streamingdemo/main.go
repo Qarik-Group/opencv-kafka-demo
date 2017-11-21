@@ -2,6 +2,8 @@ package main
 
 import (
 	"os"
+	"streamingdemo/devicestreamrouting"
+	"streamingdemo/kafkastream"
 	"streamingdemo/status"
 
 	"net/http"
@@ -17,34 +19,24 @@ func main() {
 
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*.html")
-	r.Static("/images", "templates/images")
 
 	r.Use(gin.Logger())
 	// Recovery middleware recovers from any panics and writes a 500 if there was one.
 	r.Use(gin.Recovery())
 
+	var routing devicestreamrouting.DeviceStreamRouting
+	if os.Getenv("DEMO_IMAGES") != "" {
+		routing = devicestreamrouting.NewDemoDeviceStreamRouting()
+	} else {
+		streams := kafkastream.KafkaStreams{}
+		routing = devicestreamrouting.NewKafkaDeviceStreamRouting(streams)
+	}
+	routing.RegisterGinRouting(r)
+
 	r.GET("/", func(c *gin.Context) {
-		if os.Getenv("DEMO_IMAGES") != "" {
-			c.HTML(http.StatusOK, "index.html", gin.H{
-				"Devices": []gin.H{
-					gin.H{
-						"Name":                    "drnic-laptop",
-						"RawImageURL":             "/images/raw-drnic-laptop.png",
-						"ObjectDetectionImageURL": "/images/objectdetection-drnic-laptop.png",
-					},
-					gin.H{
-						"Name":                    "drnic-pi",
-						"RawImageURL":             "/images/raw-drnic-laptop.png",
-						"ObjectDetectionImageURL": "/images/objectdetection-drnic-laptop.png",
-					},
-				},
-			})
-		} else {
-			devices := make([]gin.H, 2)
-			c.HTML(http.StatusOK, "index.html", gin.H{
-				"Devices": devices,
-			})
-		}
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"DeviceStreams": routing.HTMLLinks(),
+		})
 	})
 
 	r.Run() // listen and serve on 0.0.0.0:PORT

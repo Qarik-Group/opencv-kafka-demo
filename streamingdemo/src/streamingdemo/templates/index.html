@@ -26,7 +26,7 @@
   <body>
     <h1>Watch Images from Kafka topic</h1>
     <table>
-    {{range $index, $value := .Devices}}
+    {{range $index, $value := .DeviceStreams}}
       <tr>
         <td class="name">{{.Name}}</td>
         <td><img src="{{.RawImageURL}}" width="400" height="225"></td>
