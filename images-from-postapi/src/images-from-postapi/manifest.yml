@@ -7,7 +7,8 @@ applications:
   stack: cflinuxfs2
   services:
   - status-topic
-  - raw-images-topic
+  - raw-images-topic-drnic-laptop
+  - raw-images-topic-drnic-pi
   env:
     GOVERSION: go1.9
     GOPACKAGENAME: images-from-postapi
