@@ -27,7 +27,8 @@ func main() {
 	}()
 
 	r := gin.Default()
-	r.LoadHTMLGlob("templates/*")
+	r.LoadHTMLGlob("templates/*.html")
+	r.Static("/images", "templates/images")
 
 	r.Use(gin.Logger())
 	// Recovery middleware recovers from any panics and writes a 500 if there was one.
