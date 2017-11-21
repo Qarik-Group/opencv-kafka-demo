@@ -25,7 +25,7 @@ applications:
   env:
     GOVERSION: go1.9
     GOPACKAGENAME: images-from-postapi
-- name: objectdetector
+- name: objectdetector-drnic-laptop
   path: objectdetector
   buildpack: https://github.com/cloudfoundry/multi-buildpack
   disk_quota: 1G
@@ -35,9 +35,10 @@ applications:
   health-check-type: none
   services:
   - status-topic
-  - raw-images-topic
-  - objectdetector-images-topic
+  - raw-images-topic-drnic-laptop
+  - objectdetector-images-topic-drnic-laptop
 - name: imagewatcher-raw
+  path: imagewatcher-go/src/imagewatcher
   buildpack: https://github.com/cloudfoundry/multi-buildpack
   health-check-type: http
   instances: 1
@@ -45,13 +46,14 @@ applications:
   stack: cflinuxfs2
   services:
   - status-topic
-  - raw-images-topic
+  - raw-images-topic-drnic-laptop
   env:
     GOVERSION: go1.9
     GOPACKAGENAME: imagewatcher
     GIN_MODE: release
-    IMAGE_TOPIC_SERVICE_NAME: raw-images-topic
+    IMAGE_TOPIC_SERVICE_NAME: raw-images-topic-drnic-laptop
 - name: imagewatcher-objectdetector
+  path: imagewatcher-go/src/imagewatcher
   buildpack: https://github.com/cloudfoundry/multi-buildpack
   health-check-type: http
   instances: 1
@@ -59,9 +61,9 @@ applications:
   stack: cflinuxfs2
   services:
   - status-topic
-  - objectdetector-images-topic
+  - objectdetector-images-topic-drnic-laptop
   env:
     GOVERSION: go1.9
     GOPACKAGENAME: imagewatcher
     GIN_MODE: release
-    IMAGE_TOPIC_SERVICE_NAME: objectdetector-images-topic
+    IMAGE_TOPIC_SERVICE_NAME: objectdetector-images-topic-drnic-laptop

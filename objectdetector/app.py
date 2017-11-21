@@ -1,4 +1,6 @@
 import os
+import re
+
 import cv2
 import numpy as np
 import imutils
@@ -13,21 +15,23 @@ else:
     statusKafka  = statusService.credentials.get("hostname")
     statusTopic  = statusService.credentials.get("topicName")
 
-inImagesService = env.get_service(name='raw-images-topic')
+inImagesService = env.get_service(name=re.compile('raw'))
 if inImagesService is None:
     inImagesKafka = "localhost:9092"
     inImagesTopic = "opencv-kafka-demo-raw-images"
 else:
     inImagesKafka  = inImagesService.credentials.get("hostname")
     inImagesTopic  = inImagesService.credentials.get("topicName")
+    print("Found inbound Cloud Foundry service", inImagesService.name)
 
-outImagesService = env.get_service(name='objectdetector-images-topic')
+outImagesService = env.get_service(name=re.compile('objectdetector'))
 if outImagesService is None:
     outImagesKafka = "localhost:9092"
     outImagesTopic = "opencv-kafka-demo-objectdetector-images"
 else:
     outImagesKafka  = outImagesService.credentials.get("hostname")
     outImagesTopic  = outImagesService.credentials.get("topicName")
+    print("Found outbound Cloud Foundry service", outImagesService.name)
 
 import json
 from kafka import KafkaProducer
