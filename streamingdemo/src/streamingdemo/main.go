@@ -26,15 +26,23 @@ func main() {
 	r.GET("/", func(c *gin.Context) {
 		if os.Getenv("DEMO_IMAGES") != "" {
 			c.HTML(http.StatusOK, "index.html", gin.H{
-				"videoFeedURL":            "/stream_image",
-				"rawImageURL":             "/images/raw-drnic-laptop.png",
-				"objectdetectionImageURL": "/images/objectdetection-drnic-laptop.png",
+				"Devices": []gin.H{
+					gin.H{
+						"Name":                    "drnic-laptop",
+						"RawImageURL":             "/images/raw-drnic-laptop.png",
+						"ObjectDetectionImageURL": "/images/objectdetection-drnic-laptop.png",
+					},
+					gin.H{
+						"Name":                    "drnic-pi",
+						"RawImageURL":             "/images/raw-drnic-laptop.png",
+						"ObjectDetectionImageURL": "/images/objectdetection-drnic-laptop.png",
+					},
+				},
 			})
 		} else {
+			devices := make([]gin.H, 2)
 			c.HTML(http.StatusOK, "index.html", gin.H{
-				"videoFeedURL":            "/stream_image",
-				"rawImageURL":             "/stream_image/raw",
-				"objectdetectionImageURL": "/images/objectdetection-drnic-laptop.png",
+				"Devices": devices,
 			})
 		}
 	})

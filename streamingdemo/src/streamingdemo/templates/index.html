@@ -24,9 +24,16 @@
   	<meta name="msapplication-config" content="/browserconfig.xml">
   </head>
   <body>
-    <img style="-webkit-user-select: none;background-position: 0px 0px, 10px 10px;background-size: 20px 20px;background-image:linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);cursor: zoom-in;" src="/images/snw_banner.jpg" width="637" height="211">
     <h1>Watch Images from Kafka topic</h1>
-    <img src="{{.rawImageURL}}" width="400" height="225">
-    <img src="{{.objectdetectionImageURL}}" width="400" height="225">
+    <table>
+    {{range $index, $value := .Devices}}
+      <tr>
+        <td class="name">{{.Name}}</td>
+        <td><img src="{{.RawImageURL}}" width="400" height="225"></td>
+        <td>-></td>
+        <td><img src="{{.ObjectDetectionImageURL}}" width="400" height="225"></td>
+      </tr>
+    {{end}}
+  </table>
   </body>
 </html>
