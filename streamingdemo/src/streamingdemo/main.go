@@ -10,13 +10,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// func webHandlerRoot(w http.ResponseWriter, r *http.Request) {
-//   tmpl, err := template.New("index").Parse(...)
-// // Error checking elided
-// err = tmpl.Execute(w, data)
-//
-// }
-
 var statusChannel *status.StatusChannel
 var imagesChannel *images.ImagesChannel
 var imageStream *mjpeg.Stream

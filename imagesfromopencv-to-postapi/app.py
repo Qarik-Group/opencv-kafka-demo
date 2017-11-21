@@ -8,6 +8,7 @@ if not os.environ.get('POST_ENDPOINT'):
     print("Requires $POST_ENDPOINT")
     exit(1)
 
+deviceID = os.environ['DEVICE_ID']
 postEndpoint = os.environ['POST_ENDPOINT']
 
 # import camera driver
@@ -22,7 +23,7 @@ camerastream = Camera()
 while True:
     frame = camerastream.get_frame()
     try:
-        r = requests.post(postEndpoint, data=frame)
+        r = requests.post(postEndpoint + "?deviceID=" + deviceID, data=frame)
         if r.status_code != 200:
             print(r.status_code)
             sleep(1)

@@ -15,6 +15,13 @@ func webHandlerRoot(w http.ResponseWriter, r *http.Request) {
 }
 
 func webHandlerReceiveImage(w http.ResponseWriter, r *http.Request) {
+	deviceID := r.FormValue("deviceID")
+	if deviceID == "" {
+		fmt.Fprintf(os.Stderr, "Missing 'deviceID' on /image")
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("500 - Missing 'deviceID'"))
+		return
+	}
 	image, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Failed to ReadAll image")
@@ -33,7 +40,7 @@ func main() {
 	imagesChannel = images.NewImagesChannel()
 
 	http.HandleFunc("/", webHandlerRoot)
-	http.HandleFunc("/image/drnic-laptop", webHandlerReceiveImage)
+	http.HandleFunc("/image", webHandlerReceiveImage)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000"
