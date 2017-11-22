@@ -11,6 +11,7 @@ import (
 type KafkaTopicStreams struct {
 	StreamTypes  []string
 	DeviceIDs    []string
+	ImageTopics  map[string]*ImageTopic
 	MJPEGStreams map[string]*mjpeg.Stream
 }
 
@@ -19,6 +20,7 @@ type KafkaTopicStreams struct {
 func NewKafkaTopicStreams() (streams *KafkaTopicStreams) {
 	streams = &KafkaTopicStreams{
 		StreamTypes:  []string{"raw", "objectdetection"},
+		ImageTopics:  map[string]*ImageTopic{},
 		MJPEGStreams: map[string]*mjpeg.Stream{},
 	}
 	streams.discoverDeviceIDs()
@@ -45,8 +47,9 @@ func (streams *KafkaTopicStreams) setupLocalKafka() {
 			mjpegStreamKey := streams.mjpegStreamKey(streamType, deviceID)
 
 			fmt.Println("Watching local Kafka topic", kafkaTopic)
-			streams.MJPEGStreams[mjpegStreamKey] = mjpeg.NewStream()
-			// TODO Watching local Kafka topic -> mjpeg.Stream
+			mjpegStream := mjpeg.NewStream()
+			streams.MJPEGStreams[mjpegStreamKey] = mjpegStream
+			streams.ImageTopics[mjpegStreamKey] = NewImageTopic("localhost:9092", kafkaTopic, mjpegStream)
 		}
 	}
 }
