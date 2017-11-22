@@ -37,6 +37,22 @@ applications:
   - status-topic
   - raw-images-topic-drnic-laptop
   - objectdetector-images-topic-drnic-laptop
+  env:
+    DEVICE_ID: drnic-laptop
+- name: objectdetector-drnic-pi
+  path: objectdetector
+  buildpack: https://github.com/cloudfoundry/multi-buildpack
+  disk_quota: 1G
+  instances: 1
+  memory: 256M
+  stack: cflinuxfs2
+  health-check-type: none
+  services:
+  - status-topic
+  - raw-images-topic-drnic-pi
+  - objectdetector-images-topic-drnic-pi
+  env:
+    DEVICE_ID: drnic-pi
 - name: streamingdemo
   path: streamingdemo/src/streamingdemo
   buildpack: https://github.com/cloudfoundry/multi-buildpack
@@ -54,34 +70,4 @@ applications:
     GOVERSION: go1.9
     GOPACKAGENAME: imagewatcher
     GIN_MODE: release
-    IMAGE_TOPIC_SERVICE_NAME: raw-images-topic-drnic-laptop
-- name: imagewatcher-raw
-  path: imagewatcher-go/src/imagewatcher
-  buildpack: https://github.com/cloudfoundry/multi-buildpack
-  health-check-type: http
-  instances: 1
-  memory: 128M
-  stack: cflinuxfs2
-  services:
-  - status-topic
-  - raw-images-topic-drnic-laptop
-  env:
-    GOVERSION: go1.9
-    GOPACKAGENAME: imagewatcher
-    GIN_MODE: release
-    IMAGE_TOPIC_SERVICE_NAME: raw-images-topic-drnic-laptop
-- name: imagewatcher-objectdetector
-  path: imagewatcher-go/src/imagewatcher
-  buildpack: https://github.com/cloudfoundry/multi-buildpack
-  health-check-type: http
-  instances: 1
-  memory: 128M
-  stack: cflinuxfs2
-  services:
-  - status-topic
-  - objectdetector-images-topic-drnic-laptop
-  env:
-    GOVERSION: go1.9
-    GOPACKAGENAME: imagewatcher
-    GIN_MODE: release
-    IMAGE_TOPIC_SERVICE_NAME: objectdetector-images-topic-drnic-laptop
+    DEVICE_IDS: drnic-laptop,drnic-pi
