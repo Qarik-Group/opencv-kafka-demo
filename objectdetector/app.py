@@ -18,7 +18,7 @@ else:
 inImagesService = env.get_service(name=re.compile('raw'))
 if inImagesService is None:
     inImagesKafka = "localhost:9092"
-    inImagesTopic = "opencv-kafka-demo-raw-images"
+    inImagesTopic = "opencv-kafka-demo-raw-drnic-laptop"
 else:
     inImagesKafka  = inImagesService.credentials.get("hostname")
     inImagesTopic  = inImagesService.credentials.get("topicName")
@@ -27,7 +27,7 @@ else:
 outImagesService = env.get_service(name=re.compile('objectdetector'))
 if outImagesService is None:
     outImagesKafka = "localhost:9092"
-    outImagesTopic = "opencv-kafka-demo-objectdetector-images"
+    outImagesTopic = "opencv-kafka-demo-objectdetector-drnic-laptop"
 else:
     outImagesKafka  = outImagesService.credentials.get("hostname")
     outImagesTopic  = outImagesService.credentials.get("topicName")
