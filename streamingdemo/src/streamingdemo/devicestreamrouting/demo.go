@@ -19,7 +19,7 @@ func (routing *DemoDeviceStreamRouting) HTMLLinks() (links []gin.H) {
 		gin.H{
 			"Name":                    "drnic-laptop",
 			"RawImageURL":             "/demo/images/raw-drnic-laptop.png",
-			"ObjectDetectionImageURL": "/demo/images/objectdetection-drnic-laptop.png",
+			"ObjectDetectionImageURL": "/demo/images/objectdetector-drnic-laptop.png",
 		},
 	}
 }

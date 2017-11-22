@@ -19,7 +19,7 @@ type KafkaTopicStreams struct {
 // environment variables to discover accessible kafka topics for image streams
 func NewKafkaTopicStreams() (streams *KafkaTopicStreams) {
 	streams = &KafkaTopicStreams{
-		StreamTypes:  []string{"raw", "objectdetection"},
+		StreamTypes:  []string{"raw", "objectdetector"},
 		ImageTopics:  map[string]*ImageTopic{},
 		MJPEGStreams: map[string]*mjpeg.Stream{},
 	}

@@ -22,7 +22,7 @@ func (routing *KafkaDeviceStreamRouting) HTMLLinks() (links []gin.H) {
 	link := gin.H{
 		"Name":                    "drnic-laptop",
 		"RawImageURL":             "/kafka/raw/drnic-laptop",
-		"ObjectDetectionImageURL": "/kafka/objectdetection/drnic-laptop",
+		"ObjectDetectionImageURL": "/kafka/objectdetector/drnic-laptop",
 	}
 	links = append(links, link)
 	return
