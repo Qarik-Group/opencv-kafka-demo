@@ -3,20 +3,18 @@ package devicestreamrouting
 import (
 	"fmt"
 	"streamingdemo/kafkastream"
-	"streamingdemo/mjpeg"
 
 	"github.com/gin-gonic/gin"
 )
 
 // KafkaDeviceStreamRouting provides image URLs that will be streaming images from Kafka topics
 type KafkaDeviceStreamRouting struct {
-	KafkaTopicStreams kafkastream.KafkaTopicStreams
-	MJPEGStreams      map[string]*mjpeg.Stream
+	Streams *kafkastream.KafkaTopicStreams
 }
 
 // NewKafkaDeviceStreamRouting constructs a KafkaDeviceStreamRouting
-func NewKafkaDeviceStreamRouting(streams kafkastream.KafkaTopicStreams) (routing *KafkaDeviceStreamRouting) {
-	return &KafkaDeviceStreamRouting{KafkaTopicStreams: streams}
+func NewKafkaDeviceStreamRouting(streams *kafkastream.KafkaTopicStreams) (routing *KafkaDeviceStreamRouting) {
+	return &KafkaDeviceStreamRouting{Streams: streams}
 }
 
 // HTMLLinks returns the information going into HTML template
@@ -40,7 +38,7 @@ func (routing *KafkaDeviceStreamRouting) ImageStream(ctx *gin.Context) {
 	streamType := ctx.Param("streamType")
 	deviceID := ctx.Param("deviceID")
 	streamKey := routing.streamKey(streamType, deviceID)
-	stream := routing.MJPEGStreams[streamKey]
+	stream := routing.Streams.MJPEGStreams[streamKey]
 	if stream != nil {
 		fmt.Printf("Request GET jpg stream: streamType=%s deviceID=%s\n", streamType, deviceID)
 		stream.ServeGinContent(ctx)

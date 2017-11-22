@@ -28,7 +28,7 @@ func main() {
 	if os.Getenv("DEMO_IMAGES") != "" {
 		routing = devicestreamrouting.NewDemoDeviceStreamRouting()
 	} else {
-		streams := kafkastream.KafkaTopicStreams{}
+		streams := kafkastream.NewKafkaTopicStreams()
 		routing = devicestreamrouting.NewKafkaDeviceStreamRouting(streams)
 	}
 	routing.RegisterGinRouting(r)
