@@ -107,3 +107,4 @@ venv.bak/
 
 /models/
 .DS_Store
+opencv*.zip
