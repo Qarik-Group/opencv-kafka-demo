@@ -19,12 +19,14 @@ func NewKafkaDeviceStreamRouting(streams *kafkastream.KafkaTopicStreams) (routin
 
 // HTMLLinks returns the information going into HTML template
 func (routing *KafkaDeviceStreamRouting) HTMLLinks() (links []gin.H) {
-	link := gin.H{
-		"Name":                    "drnic-laptop",
-		"RawImageURL":             "/kafka/raw/drnic-laptop",
-		"ObjectDetectionImageURL": "/kafka/objectdetector/drnic-laptop",
+	for _, deviceID := range routing.Streams.DeviceIDs {
+		link := gin.H{
+			"Name":                    deviceID,
+			"RawImageURL":             fmt.Sprintf("/kafka/raw/%s", deviceID),
+			"ObjectDetectionImageURL": fmt.Sprintf("/kafka/objectdetector/%s", deviceID),
+		}
+		links = append(links, link)
 	}
-	links = append(links, link)
 	return
 }
 
