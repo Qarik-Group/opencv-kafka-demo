@@ -15,4 +15,3 @@ applications:
     GOVERSION: go1.9
     GOPACKAGENAME: streamingdemo
     GIN_MODE: release
-    DEVICE_IDS: drnic-laptop,drnic-pi
