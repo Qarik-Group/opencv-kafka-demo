@@ -17,13 +17,12 @@ RUN apt-get install -y --no-install-recommends \
         cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
 
 RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
-    python get-pip.py && \
+    python3 get-pip.py && \
     rm get-pip.py
 
 COPY requirements.txt /app/requirements.txt
-RUN pip install -r /app/requirements.txt
+RUN pip3 install -r /app/requirements.txt
 
 COPY . /app
 
 WORKDIR /app
-#ENTRYPOINT [./start.sh]
