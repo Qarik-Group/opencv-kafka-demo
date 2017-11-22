@@ -35,11 +35,7 @@ func NewImageStreamChannelsWithDiscovery() (channels *ImageStreamChannels) {
 		os.Exit(1)
 	}
 	for _, imageTopicService := range imageTopicServices {
-		regex, err := regexp.Compile("(?i)^" + cfServiceNamePrefix + "-(.*)$")
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "Failed to create regexp.Compile: %v", err)
-			os.Exit(1)
-		}
+		regex := regexp.MustCompile("(?i)^" + cfServiceNamePrefix + "-(.*)$")
 		deviceID := regex.FindStringSubmatch(imageTopicService.Name)[1]
 
 		hostname, _ := imageTopicService.CredentialString("hostname")
