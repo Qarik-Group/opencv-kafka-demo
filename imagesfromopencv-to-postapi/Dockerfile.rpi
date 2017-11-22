@@ -20,6 +20,16 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && \
     rm get-pip.py
 
+RUN OPENCV_VERSION=3.3.1 && \
+    cd /tmp && \
+    curl -L https://github.com/opencv/opencv/archive/$OPENCV_VERSION.tar.gz -o opencv-$OPENCV_VERSION.tar.gz && \
+    tar xvzf opencv-$OPENCV_VERSION.tar.gz && \
+    cd opencv-*/release && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_PYTHON_SUPPORT=ON -D WITH_XINE=ON -D WITH_TBB=ON .. && \
+    make && make install && \
+    rm -rf /tmp/opencv*
+
+
 COPY requirements.txt /app/requirements.txt
 RUN pip3 install -r /app/requirements.txt
 
