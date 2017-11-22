@@ -17,8 +17,12 @@ else:
 
 inImagesService = env.get_service(name=re.compile('raw'))
 if inImagesService is None:
+    if not os.environ.get('DEVICE_ID'):
+        print("Must provide $DEVICE_ID when not running on Cloud Foundry")
+        exit(1)
+
     inImagesKafka = "localhost:9092"
-    inImagesTopic = "opencv-kafka-demo-raw-drnic-laptop"
+    inImagesTopic = "opencv-kafka-demo-raw-" + os.environ['DEVICE_ID']
 else:
     inImagesKafka  = inImagesService.credentials.get("hostname")
     inImagesTopic  = inImagesService.credentials.get("topicName")
@@ -27,7 +31,7 @@ else:
 outImagesService = env.get_service(name=re.compile('objectdetector'))
 if outImagesService is None:
     outImagesKafka = "localhost:9092"
-    outImagesTopic = "opencv-kafka-demo-objectdetector-drnic-laptop"
+    outImagesTopic = "opencv-kafka-demo-objectdetector-" + os.environ['DEVICE_ID']
 else:
     outImagesKafka  = outImagesService.credentials.get("hostname")
     outImagesTopic  = outImagesService.credentials.get("topicName")
