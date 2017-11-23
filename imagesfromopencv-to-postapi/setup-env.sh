@@ -14,7 +14,7 @@ apt-get update && apt-get install -y --no-install-recommends \
         rsync \
         software-properties-common \
         unzip \
-        python3 python3-dev python3-numpy \
+        python3 python3-dev \
         cmake git pkg-config \
         libjpeg-dev \
         libtiff5-dev \
@@ -56,7 +56,6 @@ cd $DIR
 rm -rf /tmp/opencv*/
 
 pip3 install -r requirements.txt
-pip3 install numpy --upgrade
 
 # activate raspberry pi camera
 modprobe bcm2835-v4l2 || echo "perhaps not on raspberry-pi or no camera"
