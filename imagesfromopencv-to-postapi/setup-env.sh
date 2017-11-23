@@ -7,14 +7,14 @@ set -eu
 
 apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
-        curl wget
+        curl wget \
         libjpeg-dev \
         libpng12-dev \
         pkg-config \
         rsync \
         software-properties-common \
-        unzip
-        python3 python3-dev python3-numpy
+        unzip \
+        python3 python3-dev python3-numpy \
         cmake git pkg-config \
         libjpeg-dev \
         libtiff5-dev \
