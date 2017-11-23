@@ -3,7 +3,7 @@ FROM drnic/raspberrypi-core:latest
 # Pick up some TF dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
-        curl wget 
+        curl wget
 RUN apt-get install -y --no-install-recommends \
         libjpeg-dev \
         libpng12-dev \
@@ -27,7 +27,7 @@ RUN OPENCV_VERSION=3.3.0 && \
     cd opencv-* && \
     mkdir release && cd release && \
     cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_PYTHON_SUPPORT=ON -D WITH_XINE=ON -D WITH_TBB=ON .. && \
-    make && make install && \
+    make -j4 && make install && \
     rm -rf /tmp/opencv*
 
     # curl -L https://github.com/opencv/opencv/archive/$OPENCV_VERSION.tar.gz -o opencv-$OPENCV_VERSION.tar.gz && \
