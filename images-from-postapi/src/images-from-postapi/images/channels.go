@@ -45,7 +45,7 @@ func NewImageStreamChannelsWithDiscovery() (channels *ImageStreamChannels) {
 			hostname,
 			topicName,
 		)
-		fmt.Println("Discovered Kafka topic of raw images for deviceID", deviceID)
+		fmt.Printf("Discovered Kafka service '%s' of raw images for device '%s'\n", imageTopicService.Name, deviceID)
 	}
 	return
 }
