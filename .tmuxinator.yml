@@ -16,3 +16,10 @@ windows:
         - cd objectdetector; DEVICE_ID=drnic-pi python3 app.py
         # - cd imagewatcher-go; source .envrc; cd src/imagewatcher; IMAGE_TOPIC=opencv-kafka-demo-raw-images PORT=8080 go run main.go
         # - cd imagewatcher-go; source .envrc; cd src/imagewatcher; IMAGE_TOPIC=opencv-kafka-demo-objectdetector-images PORT=8081 go run main.go
+  - cf-logs:
+      layout: tiled
+      panes:
+        - cf logs statusconsumer
+        - cf logs images-from-postapi
+        - cf logs objectdetector-drnic-laptop
+        - cf logs streamingdemo
