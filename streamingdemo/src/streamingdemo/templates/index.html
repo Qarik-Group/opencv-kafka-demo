@@ -23,14 +23,15 @@
   	<meta name="msapplication-TileImage" content="/images/favicon/favicon-144.png">
   	<meta name="msapplication-config"    content="/images/favicon/browserconfig.xml">
   </head>
-  <body>
-    <h1>Watch Images from Kafka topic</h1>
+  <body style="background-image: url(/images/snw_banner.jpg)">>
+
+    <h1 style="color: white;">Watch Images from Kafka topic</h1>
     <table>
     {{range $index, $value := .DeviceStreams}}
       <tr>
-        <td class="name">{{.Name}}</td>
+        <td class="name" style="color: white;">{{.Name}}</td>
         <td><img src="{{.RawImageURL}}" width="400" height="225"></td>
-        <td>-></td>
+        <td style="color: white;">-></td>
         <td><img src="{{.ObjectDetectionImageURL}}" width="400" height="225"></td>
       </tr>
     {{end}}
