@@ -14,24 +14,41 @@ RUN apt-get install -y --no-install-recommends \
 RUN apt-get install -y --no-install-recommends \
         python3 python3-dev python3-numpy
 RUN apt-get install -y --no-install-recommends \
-        cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+        cmake git pkg-config \
+        libjpeg-dev \
+        libtiff5-dev \
+        libjasper-dev \
+        libpng12-dev \
+        libavcodec-dev \
+        libavformat-dev \
+        libswscale-dev \
+        libv4l-dev \
+        libxvidcore-dev \
+        libx264-dev \
+        libgtk2.0-dev \
+        libatlas-base-dev \
+        gfortran
 
 RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && \
     rm get-pip.py
 
-COPY opencv-3.3.0.zip /tmp/opencv-3.3.0.zip
-RUN OPENCV_VERSION=3.3.0 && \
+RUN OPENCV_VERSION=3.3.1 && \
     cd /tmp && \
+    curl -L https://github.com/opencv/opencv/archive/$OPENCV_VERSION.tar.gz -o opencv-$OPENCV_VERSION.tar.gz && \
+    tar xvzf opencv-$OPENCV_VERSION.tar.gz && \
     unzip opencv*.zip && \
     cd opencv-* && \
     mkdir release && cd release && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_PYTHON_SUPPORT=ON -D WITH_XINE=ON -D WITH_TBB=ON .. && \
-    make -j4 && make install && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          -D BUILD_PYTHON_SUPPORT=ON \
+          -D BUILD_NEW_PYTHON_SUPPORT=ON \
+          -D WITH_XINE=ON \
+          -D WITH_TBB=ON .. && \
+    make -j4 && \
+    make install && \
     rm -rf /tmp/opencv*
-
-    # curl -L https://github.com/opencv/opencv/archive/$OPENCV_VERSION.tar.gz -o opencv-$OPENCV_VERSION.tar.gz && \
-    # tar xvzf opencv-$OPENCV_VERSION.tar.gz && \
 
 COPY requirements.txt /app/requirements.txt
 RUN pip3 install -r /app/requirements.txt

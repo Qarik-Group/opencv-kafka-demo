@@ -4,7 +4,7 @@ On Raspberry Pi:
 
 ```
 CAMERA=opencv
-POST_ENDPOINT=http://drnic-laptop.local/image
+POST_ENDPOINT=http://192.168.86.185:8000/image
 DEVICE_ID=drnic-pi
 docker rm -f $DEVICE_ID; \
 docker run -d \
