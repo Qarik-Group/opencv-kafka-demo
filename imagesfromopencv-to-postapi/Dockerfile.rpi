@@ -37,7 +37,6 @@ RUN OPENCV_VERSION=3.3.1 && \
     cd /tmp && \
     curl -L https://github.com/opencv/opencv/archive/$OPENCV_VERSION.tar.gz -o opencv-$OPENCV_VERSION.tar.gz && \
     tar xvzf opencv-$OPENCV_VERSION.tar.gz && \
-    unzip opencv*.zip && \
     cd opencv-* && \
     mkdir release && cd release && \
     cmake -D CMAKE_BUILD_TYPE=RELEASE \
