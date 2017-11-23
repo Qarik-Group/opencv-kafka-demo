@@ -56,3 +56,7 @@ cd $DIR
 rm -rf /tmp/opencv*/
 
 pip3 install -r requirements.txt
+pip3 install numpy --upgrade
+
+# activate raspberry pi camera
+modprobe bcm2835-v4l2 || echo "perhaps not on raspberry-pi or no camera"
