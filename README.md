@@ -2,7 +2,7 @@
 ## Locally MacOS
 
 ```
-brew install kafka
+brew install kafka librdkafka
 ```
 
 Kafka + ZooKeeper are now running locally.
