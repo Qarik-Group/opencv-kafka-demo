@@ -21,9 +21,10 @@ func NewKafkaDeviceStreamRouting(streams *kafkastream.KafkaTopicStreams) (routin
 func (routing *KafkaDeviceStreamRouting) HTMLLinks() (links []gin.H) {
 	for _, deviceID := range routing.Streams.DeviceIDs {
 		link := gin.H{
-			"Name":                    deviceID,
-			"RawImageURL":             fmt.Sprintf("/kafka/raw/%s", deviceID),
-			"ObjectDetectionImageURL": fmt.Sprintf("/kafka/objectdetector/%s", deviceID),
+			"Name":                   deviceID,
+			"RawImageURL":            fmt.Sprintf("/kafka/raw/%s", deviceID),
+			"ObjectDetectorImageURL": fmt.Sprintf("/kafka/objectdetector/%s", deviceID),
+			"EdgeDetectorImageURL":   fmt.Sprintf("/kafka/edgedetector/%s", deviceID),
 		}
 		links = append(links, link)
 	}

@@ -56,15 +56,10 @@ net = cv2.dnn.readNetFromCaffe(protext, model)
 
 CONFIDENCE=0.2 # minimum probability to filter weak detections
 
-kafka_group_id=inImagesTopic
-kafka_client_id='%s-%d' % (kafka_group_id, os.getpid())
-print(kafka_group_id, kafka_client_id)
-
 from kafka import KafkaConsumer, KafkaProducer
 inImages = KafkaConsumer(inImagesTopic,
                          bootstrap_servers=inImagesKafka,
-                         client_id=kafka_client_id,
-                         group_id=kafka_group_id)
+                         group_id="objectdetector")
 outImages = KafkaProducer(bootstrap_servers=outImagesKafka)
 
 from tempfile import NamedTemporaryFile

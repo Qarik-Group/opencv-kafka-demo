@@ -46,7 +46,7 @@ statusProducer.send(statusTopic, {"status":"starting", "client": "edgedetector",
 from kafka import KafkaConsumer, KafkaProducer
 inImages = KafkaConsumer(inImagesTopic,
                          bootstrap_servers=inImagesKafka,
-                         group_id=inImagesTopic)
+                         group_id="edgedetector")
 outImages = KafkaProducer(bootstrap_servers=outImagesKafka)
 
 from tempfile import NamedTemporaryFile

@@ -53,6 +53,34 @@ applications:
   - objectdetector-images-topic-drnic-pi
   env:
     DEVICE_ID: drnic-pi
+- name: edgedetector-drnic-laptop
+  path: edgedetector
+  buildpack: https://github.com/cloudfoundry/multi-buildpack
+  disk_quota: 1G
+  instances: 1
+  memory: 256M
+  stack: cflinuxfs2
+  health-check-type: none
+  services:
+  - status-topic
+  - raw-images-topic-drnic-laptop
+  - edgedetector-images-topic-drnic-laptop
+  env:
+    DEVICE_ID: drnic-laptop
+- name: edgedetector-drnic-pi
+  path: edgedetector
+  buildpack: https://github.com/cloudfoundry/multi-buildpack
+  disk_quota: 1G
+  instances: 1
+  memory: 256M
+  stack: cflinuxfs2
+  health-check-type: none
+  services:
+  - status-topic
+  - raw-images-topic-drnic-pi
+  - edgedetector-images-topic-drnic-pi
+  env:
+    DEVICE_ID: drnic-pi
 - name: streamingdemo
   path: streamingdemo/src/streamingdemo
   buildpack: https://github.com/cloudfoundry/multi-buildpack
@@ -64,8 +92,10 @@ applications:
   - status-topic
   - raw-images-topic-drnic-laptop
   - objectdetector-images-topic-drnic-laptop
+  - edgedetector-images-topic-drnic-laptop
   - raw-images-topic-drnic-pi
   - objectdetector-images-topic-drnic-pi
+  - edgedetector-images-topic-drnic-pi
   env:
     GOVERSION: go1.9
     GOPACKAGENAME: imagewatcher
