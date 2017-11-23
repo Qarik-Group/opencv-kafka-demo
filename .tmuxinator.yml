@@ -8,14 +8,16 @@ windows:
   - run:
       layout: tiled
       panes:
+        - cd edgedetector; DEVICE_ID=drnic-laptop python3 app.py
         - cd streamingdemo; source .envrc; cd src/streamingdemo; DEVICE_IDS=drnic-pi,drnic-laptop go run main.go
         - cd images-from-postapi; source .envrc; cd src/images-from-postapi; DEVICE_IDS=drnic-pi,drnic-laptop go run main.go
         - sleep 5; cd imagesfromopencv-to-postapi; DEVICE_ID=drnic-laptop POST_ENDPOINT=http://localhost:8000/image CAMERA=opencv python3 app.py
         - cd statusconsumer; python3 app.py
         - cd objectdetector; DEVICE_ID=drnic-laptop python3 app.py
         - cd objectdetector; DEVICE_ID=drnic-pi python3 app.py
-        # - cd imagewatcher-go; source .envrc; cd src/imagewatcher; IMAGE_TOPIC=opencv-kafka-demo-raw-images PORT=8080 go run main.go
-        # - cd imagewatcher-go; source .envrc; cd src/imagewatcher; IMAGE_TOPIC=opencv-kafka-demo-objectdetector-images PORT=8081 go run main.go
+        # - cd imagewatcher-go; source .envrc; cd src/imagewatcher; IMAGE_TOPIC=opencv-kafka-demo-raw-drnic-laptop PORT=8080 go run main.go
+        # - cd imagewatcher-go; source .envrc; cd src/imagewatcher; IMAGE_TOPIC=opencv-kafka-demo-objectdetector-drnic-laptop PORT=8081 go run main.go
+        # - cd imagewatcher-go; source .envrc; cd src/imagewatcher; IMAGE_TOPIC=opencv-kafka-demo-edgedetector-drnic-laptop PORT=8082 go run main.go
   - cf-logs:
       layout: tiled
       panes:
