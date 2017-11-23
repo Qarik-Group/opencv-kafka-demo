@@ -9,8 +9,10 @@ applications:
   - status-topic
   - raw-images-topic-drnic-laptop
   - objectdetector-images-topic-drnic-laptop
+  - edgedetector-images-topic-drnic-laptop
   - raw-images-topic-drnic-pi
   - objectdetector-images-topic-drnic-pi
+  - edgedetector-images-topic-drnic-pi
   env:
     GOVERSION: go1.9
     GOPACKAGENAME: streamingdemo
