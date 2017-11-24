@@ -33,6 +33,7 @@ applications:
   memory: 256M
   stack: cflinuxfs2
   health-check-type: none
+  no-route: true
   services:
   - status-topic
   - raw-images-topic-drnic-laptop
@@ -47,6 +48,7 @@ applications:
   memory: 256M
   stack: cflinuxfs2
   health-check-type: none
+  no-route: true
   services:
   - status-topic
   - raw-images-topic-drnic-pi
@@ -80,6 +82,7 @@ applications:
   memory: 256M
   stack: cflinuxfs2
   health-check-type: none
+  no-route: true
   services:
   - status-topic
   - raw-images-topic-drnic-laptop
@@ -94,6 +97,7 @@ applications:
   memory: 256M
   stack: cflinuxfs2
   health-check-type: none
+  no-route: true
   services:
   - status-topic
   - raw-images-topic-drnic-pi
