@@ -22,7 +22,10 @@ body {
 
 }
 
-h1 {
+#container {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 h1 img {
@@ -31,4 +34,8 @@ h1 img {
 
 table.streaming tr.camera {
   font-size: 3em;
+}
+
+table.streaming tr.camera td.text {
+  padding: 10px;
 }

@@ -27,28 +27,31 @@
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
   </head>
   <body>
-
-    <h1><img src="/images/sw-logo-name-white.png"></h1>
-    <p></p>
-    <table class="streaming">
-      <tr>
-        <td colspan="3">
-          Two cameras putting images on Stark & Wayne kStreams topics.
-        </td>
-        <td colspan="4">
-          Two applications processing images in real time.
-        </td>
-      </tr>
-    {{range $index, $value := .DeviceStreams}}
-      <tr class="camera">
-        <td class="src-icon"><i name="{{.Name}}" class="fa {{.FontAwesomeClass}}" aria-hidden="true"></i></span></td>
-        <td><img src="{{.RawImageURL}}" width="400" height="225"></td>
-        <td><i class="fa fa-long-arrow-right" aria-hidden="true"></i></td>
-        <td><img src="{{.ObjectDetectorImageURL}}" width="400" height="225"></td>
-        <td>&amp;</td>
-        <td><img src="{{.EdgeDetectorImageURL}}" width="400" height="225"></td>
-      </tr>
-    {{end}}
-  </table>
+    <div id="container">
+      <h1><img src="/images/sw-logo-name-white.png"></h1>
+      <p>&nbsp;</p>
+      <table class="streaming">
+        <tr>
+          <td colspan="3">
+            Two cameras putting images on Stark & Wayne kStreams topics.
+          </td>
+          <td colspan="3">
+            Two applications processing images in real time.
+          </td>
+        </tr>
+        <tr class="space"><td colspan="7">&nbsp;</td></tr>
+      {{range $index, $value := .DeviceStreams}}
+        <tr class="camera">
+          <td class="text src-icon"><i name="{{.Name}}" class="fa {{.FontAwesomeClass}}" aria-hidden="true"></i></span></td>
+          <td><img src="{{.RawImageURL}}" width="400" height="225"></td>
+          <td class="text"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></td>
+          <td><img src="{{.ObjectDetectorImageURL}}" width="400" height="225"></td>
+          <td class="text">&amp;</td>
+          <td><img src="{{.EdgeDetectorImageURL}}" width="400" height="225"></td>
+        </tr>
+        <tr class="space"><td colspan="7">&nbsp;</td></tr>
+      {{end}}
+      </table>
+    </div>
   </body>
 </html>
