@@ -22,6 +22,12 @@ func (routing *DemoDeviceStreamRouting) HTMLLinks() (links []gin.H) {
 			"ObjectDetectorImageURL": "/demo/images/objectdetector-drnic-laptop.png",
 			"EdgeDetectorImageURL":   "/demo/images/edgedetector-drnic-laptop.png",
 		},
+		gin.H{
+			"Name":                   "drnic-pi",
+			"RawImageURL":            "/demo/images/raw-drnic-pi.png",
+			"ObjectDetectorImageURL": "/demo/images/objectdetector-drnic-pi.png",
+			"EdgeDetectorImageURL":   "/demo/images/edgedetector-drnic-pi.png",
+		},
 	}
 }
 
