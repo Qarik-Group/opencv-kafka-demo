@@ -17,13 +17,15 @@ func NewDemoDeviceStreamRouting() (routing *DemoDeviceStreamRouting) {
 func (routing *DemoDeviceStreamRouting) HTMLLinks() (links []gin.H) {
 	return []gin.H{
 		gin.H{
-			"Name":                   "drnic-laptop",
+			"Name":                   "laptop",
+			"FontAwesomeClass":       "fa-laptop",
 			"RawImageURL":            "/demo/images/raw-drnic-laptop.png",
 			"ObjectDetectorImageURL": "/demo/images/objectdetector-drnic-laptop.png",
 			"EdgeDetectorImageURL":   "/demo/images/edgedetector-drnic-laptop.png",
 		},
 		gin.H{
-			"Name":                   "drnic-pi",
+			"Name":                   "raspberrypi",
+			"FontAwesomeClass":       "fa-camera-retro",
 			"RawImageURL":            "/demo/images/raw-drnic-pi.png",
 			"ObjectDetectorImageURL": "/demo/images/objectdetector-drnic-pi.png",
 			"EdgeDetectorImageURL":   "/demo/images/edgedetector-drnic-pi.png",

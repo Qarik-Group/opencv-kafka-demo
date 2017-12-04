@@ -16,4 +16,19 @@ body {
 
   /* W3C Markup */
   background-image: radial-gradient(ellipse farthest-side at center top, #0072D6 0%, #004B8D 100%);
+
+  color: white;
+  font-family: 'Merriweather', serif;
+
+}
+
+h1 {
+}
+
+h1 img {
+  vertical-align: bottom;
+}
+
+table.streaming tr.camera {
+  font-size: 3em;
 }

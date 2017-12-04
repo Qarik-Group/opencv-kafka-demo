@@ -23,18 +23,29 @@
   	<meta name="msapplication-TileImage" content="/images/favicon/favicon-144.png">
   	<meta name="msapplication-config"    content="/images/favicon/browserconfig.xml">
     <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
   </head>
   <body>
 
-    <h1 style="color: white;">Watch Images from Kafka topic</h1>
-    <table>
-    {{range $index, $value := .DeviceStreams}}
+    <h1><img src="/images/sw-logo-name-white.png"></h1>
+    <p></p>
+    <table class="streaming">
       <tr>
-        <td class="name" style="color: white;">{{.Name}}</td>
+        <td colspan="3">
+          Two cameras putting images on Stark & Wayne kStreams topics.
+        </td>
+        <td colspan="4">
+          Two applications processing images in real time.
+        </td>
+      </tr>
+    {{range $index, $value := .DeviceStreams}}
+      <tr class="camera">
+        <td class="src-icon"><i name="{{.Name}}" class="fa {{.FontAwesomeClass}}" aria-hidden="true"></i></span></td>
         <td><img src="{{.RawImageURL}}" width="400" height="225"></td>
-        <td style="color: white;">-></td>
+        <td><i class="fa fa-long-arrow-right" aria-hidden="true"></i></td>
         <td><img src="{{.ObjectDetectorImageURL}}" width="400" height="225"></td>
-        <td style="color: white;">and</td>
+        <td>&amp;</td>
         <td><img src="{{.EdgeDetectorImageURL}}" width="400" height="225"></td>
       </tr>
     {{end}}

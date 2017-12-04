@@ -21,6 +21,7 @@ func main() {
 	r.LoadHTMLGlob("templates/*.html")
 	r.Static("/images", "templates/images")
 	r.Static("/css", "templates/css")
+	r.Static("/fonts", "templates/fonts")
 	r.Static("/js", "templates/js")
 
 	r.Use(gin.Logger())
