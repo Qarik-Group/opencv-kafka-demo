@@ -1,3 +1,6 @@
+# Demo of Kafka and OpenCV
+
+![demo](docs/demo-of-dashboard.png)
 
 ## Locally MacOS
 
